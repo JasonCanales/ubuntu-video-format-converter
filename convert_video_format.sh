@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Directory containing the source .mkv files
-SOURCE_DIR="/home/jason"
+# Prompt user for the source directory and read the input
+echo "Enter the source directory:"
+read SOURCE_DIR
 
-# Directory where you want to save the converted .mp4 files
-OUTPUT_DIR="/home/jason"
+# Prompt user for the output directory and read the input
+echo "Enter the output directory:"
+read OUTPUT_DIR
 
 # Create the output directory if it does not exist
 mkdir -p "$OUTPUT_DIR"
