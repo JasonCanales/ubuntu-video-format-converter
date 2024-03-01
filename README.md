@@ -13,6 +13,41 @@ This project is a simple shell script that allows users to convert video files f
 - FFmpeg must be installed on the system where the script is run.
 - The script should have execute permissions to run.
 
+## Installation
+
+### FFmpeg
+
+To install FFmpeg on your system, follow these instructions:
+
+#### Ubuntu/Debian
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+#### CentOS
+```bash
+sudo yum install epel-release
+sudo yum install ffmpeg
+```
+
+#### MacOS
+```bash
+brew install ffmpeg
+```
+
+#### Windows
+
+Download the FFmpeg builds from [FFmpeg Official Website](https://ffmpeg.org/download.html) and follow the instructions to add it to your system path.
+
+### Script Permissions
+
+To make the `convert_video_format.sh` script executable, run the following command:
+
+```bash
+chmod +x convert_video_format.sh
+```
+
 ## Usage
 
 1. Clone the repository to your local machine.
