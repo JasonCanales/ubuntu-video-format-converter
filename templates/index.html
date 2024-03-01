@@ -4,80 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Converter</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #007bff;
-            text-align: center;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="file"],
-        select,
-        input[type="submit"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px; /* Add spacing between form elements */
-        }
-        input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            border: none;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        #file-feedback {
-            color: red;
-            margin-top: -15px;
-            margin-bottom: 15px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
-
-            form {
-                gap: 5px;
-            }
-
-            input[type="file"],
-            select,
-            input[type="submit"] {
-                padding: 8px;
-            }
-
-            h1 {
-                font-size: 1.5em;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -88,19 +15,58 @@
                 <input type="file" id="source_file" name="source_file" accept="video/*" required>
                 <p id="file-feedback"></p>
             </div>
-            <div>
+            <div id="format-selection" class="hidden">
                 <label for="target_format">Choose output format:</label>
                 <select id="target_format" name="target_format">
-                    <option value="mp4">MP4</option>
-                    <option value="mkv">MKV</option>
-                    <option value="avi">AVI</option>
-                    <!-- Add more formats as needed -->
+                    <!-- Options will be populated based on the uploaded file type -->
                 </select>
             </div>
-            <div>
+            <div id="submit-button" class="hidden">
                 <input type="submit" value="Convert">
             </div>
         </form>
     </div>
+
+    <script>
+        // JavaScript to handle file upload and dynamically update format options and visibility
+        document.getElementById('source_file').addEventListener('change', function(event) {
+            const fileInput = event.target;
+            const fileName = fileInput.files[0].name;
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            const formatSelection = document.getElementById('format-selection');
+            const submitButton = document.getElementById('submit-button');
+            const targetFormat = document.getElementById('target_format');
+            
+            // Reset and hide elements
+            formatSelection.classList.add('hidden');
+            submitButton.classList.add('hidden');
+            targetFormat.innerHTML = ''; // Clear previous options
+
+            // Logic to remove the file's current format from the list of target formats
+            const formats = ['mp4', 'mkv', 'avi']; // Example formats
+            formats.forEach(format => {
+                if (format !== fileExtension) { // Exclude the current format
+                    const option = document.createElement('option');
+                    option.value = format;
+                    option.textContent = format.toUpperCase();
+                    targetFormat.appendChild(option);
+                }
+            });
+
+            // Show the format selection if there are eligible conversion formats
+            if (targetFormat.children.length > 0) {
+                formatSelection.classList.remove('hidden');
+            }
+
+            // Handle format selection change
+            targetFormat.addEventListener('change', function() {
+                if (targetFormat.value) {
+                    submitButton.classList.remove('hidden');
+                } else {
+                    submitButton.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
