@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Converter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"],
+        select,
+        input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px; /* Add spacing between form elements */
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #file-feedback {
+            color: red;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            form {
+                gap: 5px;
+            }
+
+            input[type="file"],
+            select,
+            input[type="submit"] {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Video Converter</h1>
+        <form action="/convert" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="source_file">Choose video file:</label>
+                <input type="file" id="source_file" name="source_file" accept="video/*" required>
+                <p id="file-feedback"></p>
+            </div>
+            <div>
+                <label for="target_format">Choose output format:</label>
+                <select id="target_format" name="target_format">
+                    <option value="mp4">MP4</option>
+                    <option value="mkv">MKV</option>
+                    <option value="avi">AVI</option>
+                    <!-- Add more formats as needed -->
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Convert">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
